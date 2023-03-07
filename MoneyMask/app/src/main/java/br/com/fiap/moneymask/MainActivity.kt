@@ -11,17 +11,46 @@ class MainActivity : AppCompatActivity() {
 //    val toggleButton: Button = findViewById(R.id.toggle_button)
     lateinit var binding: ActivityMainBinding
     private val mask: String = "******"
-    private val value: String? = null
+    private var value: String? = null
+    private var buttonState: ButtonState = ButtonState.HIDE_VALUE
+//    private var isShowing: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        toggle_button.setText("Text")
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        clickToggleButton()
     }
 
     fun clickToggleButton() {
+        value = binding.moneyValue.text.toString()
         binding.toggleButton.setOnClickListener {
+            when(buttonState) {
+                ButtonState.HIDE_VALUE -> {
+                    binding.moneyValue.text = mask
+                    buttonState = ButtonState.SHOW_VALUE
+                }
+                ButtonState.SHOW_VALUE -> {
+                    binding.moneyValue.text = value
+                    buttonState = ButtonState.HIDE_VALUE
+                }
+            }
+            binding.toggleButton.text =
+                getString(buttonState.buttonTextResId)
+
+//            if(isShowing) {
+//                binding.moneyValue.text = value
+//                isShowing = false
+//            } else {
+//                binding.moneyValue.text = mask
+//                isShowing = true
+//            }
+//            binding.toggleButton.text = if(isShowing) {
+//                getString(R.string.show_button_label)
+//            } else {
+//                getString(R.string.hide_button_label)
+//            }
 
         }
     }
