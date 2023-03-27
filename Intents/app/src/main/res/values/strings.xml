@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Intents</string>
+    <string name="message_hint">Mensagem</string>
+    <string name="button_send_message_label">Enviar</string>
+    <string name="button_share_message_label">Compartilhar</string>
+    <string name="chooser_title">Compartilhar via</string>
+    <string name="button_go_to_chat_label">Ir para o chat</string>
+</resources>
