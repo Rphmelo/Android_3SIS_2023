@@ -13,7 +13,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        goToChatActivity()
+        setupButton()
+    }
+
+    private fun setupButton() {
+        binding.buttonGoToChat.setOnClickListener {
+            goToChatActivity()
+        }
     }
 
     private fun goToChatActivity() {
