@@ -5,4 +5,5 @@
     <string name="message_hint">Mensagem</string>
     <string name="button_send_message_label">Enviar</string>
     <string name="chooser_title">Compartilhar via</string>
+    <string name="question_title_label">O que você deseja saber?</string>
 </resources>
