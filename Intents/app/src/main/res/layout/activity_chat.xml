@@ -7,29 +7,39 @@
     android:layout_height="match_parent"
     tools:context=".ChatActivity"
     >
-
     <TextView
         android:id="@+id/message_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Hello World!"
-        android:textSize="@dimen/text_size_large"
-        android:layout_marginHorizontal="@dimen/margin_small"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/margin_small"
+        app:layout_constraintEnd_toStartOf="@+id/button_share_message"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_share_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:text="@string/button_share_message_label"
-        android:layout_marginTop="@dimen/margin_extra_large"
-        app:layout_constraintTop_toBottomOf="@+id/message_value"
-        app:layout_constraintEnd_toEndOf="@+id/message_value"
-        app:layout_constraintStart_toStartOf="@+id/message_value"
+        app:layout_constraintTop_toTopOf="@+id/message_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/message_value"
+        app:layout_constraintBottom_toBottomOf="@id/message_value"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_chat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/text_input_layout_message"
+        tools:listitem="@layout/view_chat_list_item"
         />
 
     <com.google.android.material.textfield.TextInputLayout

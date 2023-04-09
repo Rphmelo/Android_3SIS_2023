@@ -48,4 +48,6 @@ class ChatActivity : AppCompatActivity() {
     private fun clearText() {
         binding.textInputEditTextMessage.text?.clear()
     }
+
+
 }
