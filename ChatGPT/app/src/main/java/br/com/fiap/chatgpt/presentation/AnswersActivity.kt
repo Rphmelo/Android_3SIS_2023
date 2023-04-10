@@ -11,7 +11,9 @@ import br.com.fiap.chatgpt.presentation.adapter.AnswerAdapter
 class AnswersActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAnswersBinding
-    private val talkModel = intent.getSerializableExtra(TALK_MODEL_KEY) as? TalkModel
+    private val talkModel by lazy {
+        intent.extras?.getSerializable(TALK_MODEL_KEY) as? TalkModel
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
