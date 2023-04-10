@@ -14,7 +14,6 @@ class AnswersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAnswersBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun callImplicitIntent(messageValue: String) {
