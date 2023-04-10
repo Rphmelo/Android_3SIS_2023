@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android_3SIS_2023/ChatGPT/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/ssd/Android_3SIS_2023/ChatGPT/app/src/main/res/layout/activity_answers.xml" value="0.33" />
+        <entry key="..\:/Users/ssd/Android_3SIS_2023/ChatGPT/app/src/main/res/layout/activity_questions.xml" value="0.24306326304106549" />
+        <entry key="..\:/Users/ssd/Android_3SIS_2023/ChatGPT/app/src/main/res/layout/view_answer_item.xml" value="0.33" />
+        <entry key="..\:/Users/ssd/Android_3SIS_2023/ChatGPT/app/src/main/res/layout/view_question_item.xml" value="0.1" />
       </map>
     </option>
   </component>
