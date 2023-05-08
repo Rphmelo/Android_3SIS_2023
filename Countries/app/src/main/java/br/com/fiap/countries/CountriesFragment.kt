@@ -5,27 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import br.com.fiap.countries.databinding.FragmentRegisterCountryBinding
+import br.com.fiap.countries.databinding.FragmentCountriesBinding
 
-class RegisterCountryFragment : Fragment() {
+class CountriesFragment : Fragment() {
 
-    lateinit var binding: FragmentRegisterCountryBinding
+    lateinit var binding: FragmentCountriesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRegisterCountryBinding.inflate(
+        binding = FragmentCountriesBinding.inflate(
             inflater,
             container,
             false
         )
         return binding.root
     }
-
-    private fun insertData() {
-
-    }
-
 }
