@@ -17,6 +17,7 @@
 
     <action
         android:id="@+id/action_to_RegisterCountryFragment"
-        app:destination="@+id/RegisterCountryFragment"
+        app:destination="@id/RegisterCountryFragment"
         />
+
 </navigation>
