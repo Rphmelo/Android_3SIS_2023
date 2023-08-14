@@ -16,16 +16,17 @@ abstract class AppDatabase: RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
-            val instance = Room.databaseBuilder(
-                context,
-                AppDatabase::class.java,
-                COUNTRY_DATABASE_NAME
-            ).allowMainThreadQueries() //nao façam isso em casa
-            .build()
-
-            return INSTANCE ?: let {
-                    INSTANCE = instance
-                    instance
+            if(INSTANCE != null) {
+                return INSTANCE!!
+            } else {
+                val instance = Room.databaseBuilder(
+                    context,
+                    AppDatabase::class.java,
+                    COUNTRY_DATABASE_NAME
+                ).allowMainThreadQueries() //nao façam isso em casa
+                    .build()
+                INSTANCE = instance
+                return instance
             }
         }
     }
