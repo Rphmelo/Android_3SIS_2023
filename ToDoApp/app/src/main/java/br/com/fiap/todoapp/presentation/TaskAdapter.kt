@@ -13,7 +13,7 @@ import br.com.fiap.todoapp.databinding.ViewTaskItemBinding
 
 class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
-    private val differ = AsyncListDiffer(this, differCallback)
+    private val taskList: MutableList<TaskModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ViewTaskItemBinding.bind(
@@ -27,15 +27,18 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.bindView( differ.currentList[position])
+        holder.bindView( taskList[position])
     }
 
     override fun getItemCount(): Int {
-        return differ.currentList.size
+        return taskList.size
     }
 
     fun setData(list: List<TaskModel>) {
-        differ.submitList(list)
+        taskList.clear()
+        taskList.addAll(list)
+
+        notifyDataSetChanged()
     }
 
     inner class TaskViewHolder(

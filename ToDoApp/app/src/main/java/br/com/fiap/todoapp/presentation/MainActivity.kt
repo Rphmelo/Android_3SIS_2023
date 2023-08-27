@@ -1,8 +1,9 @@
 package br.com.fiap.todoapp.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.core.view.children
 import br.com.fiap.todoapp.database.TaskStatus
 import br.com.fiap.todoapp.databinding.ActivityMainBinding
@@ -36,26 +37,31 @@ class MainActivity : AppCompatActivity() {
         taskAdapter.setData(viewModel.selectAll())
     }
 
-    private fun getTaskFromStatus(status: List<TaskStatus>) {
+    private fun getTaskFromStatus(status: TaskStatus) {
         taskAdapter.setData(viewModel.selectByStatus(status))
     }
 
     private fun setupFilters() {
         TaskStatus.values().forEach {
-            val filterOption = ViewFilterItemBinding.inflate(layoutInflater, binding.taskFilters, false)
-            filterOption.filter.text = it.title
-            binding.taskFilters.addView(filterOption.root)
+            val filterOption = ViewFilterItemBinding.inflate(
+                layoutInflater,
+                binding.taskFilters,
+                false
+            ).root as? Chip
+            filterOption?.id = ViewCompat.generateViewId()
+            filterOption?.text = it.title
+            filterOption?.isChecked = it.title == viewModel.selectedFilter?.title
+            binding.taskFilters.addView(filterOption)
         }
 
         binding.taskFilters.setOnCheckedChangeListener { group, checkedId ->
-            binding.taskFilters.children.forEach { view ->
-                (view as? Chip)?.let { chip ->
-                    if(chip.isChecked) {
-                        viewModel.selectedFilters.add(TaskStatus.getByTitle(chip.text.toString()))
-                    } else {
-                        viewModel.selectedFilters.remove(TaskStatus.getByTitle(chip.text.toString()))
-                    }
-                }
+            val checkedChip = group.children.find { it.id == checkedId } as? Chip
+
+            if(checkedChip == null) {
+                viewModel.selectedFilter = null
+            } else {
+                val taskStatusCheckedChip = TaskStatus.getByTitle(checkedChip?.text.toString())
+                viewModel.selectedFilter = taskStatusCheckedChip
             }
 
             getFilteredList()
@@ -63,10 +69,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getFilteredList() {
-        if(viewModel.selectedFilters.isEmpty()) {
+        if(viewModel.selectedFilter == null) {
             getTaskList()
         } else {
-            getTaskFromStatus(viewModel.selectedFilters.toList())
+            getTaskFromStatus(viewModel.selectedFilter!!)
         }
     }
 }

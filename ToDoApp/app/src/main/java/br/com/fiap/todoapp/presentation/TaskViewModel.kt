@@ -8,7 +8,7 @@ import br.com.fiap.todoapp.database.TaskStatus
 
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
-    val selectedFilters: MutableSet<TaskStatus> = mutableSetOf()
+    var selectedFilter: TaskStatus? = null
 
     private val appDb by lazy {
         AppDatabase.getDatabase(application.applicationContext)
@@ -18,7 +18,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         return appDb.taskDAO().selectAll()
     }
 
-    fun selectByStatus(status: List<TaskStatus>): List<TaskModel> {
+    fun selectByStatus(status: TaskStatus): List<TaskModel> {
         return appDb.taskDAO().selectByStatus(status)
     }
 }
