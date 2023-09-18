@@ -9,6 +9,7 @@ import br.com.fiap.todoapp.database.TaskStatus
 import br.com.fiap.todoapp.databinding.ActivityMainBinding
 import br.com.fiap.todoapp.databinding.ViewFilterItemBinding
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +27,17 @@ class MainActivity : AppCompatActivity() {
         setupRecycler()
         getFilteredList()
         setupFilters()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        viewModel.snackBarStatus.observe(this) {
+            Snackbar.make(
+                binding.recyclerViewTasks,
+                "Filtrando tarefas ${it.title}",
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun setupRecycler() {
