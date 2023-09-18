@@ -5,9 +5,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.children
+import androidx.lifecycle.lifecycleScope
 import br.com.fiap.todoapp.databinding.ActivityMainBinding
 import br.com.fiap.todoapp.databinding.ViewFilterItemBinding
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,14 +35,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupFilters() {
         TaskStatus.values().forEach {
-            val filterOption: Chip? = ViewFilterItemBinding.inflate(
+            val filterOption: Chip = ViewFilterItemBinding.inflate(
                 layoutInflater,
                 binding.taskFilters,
                 false
-            ).root as? Chip
-            filterOption?.id = ViewCompat.generateViewId()
-            filterOption?.text = it.title
-            filterOption?.isChecked = it.title == viewModel.selectedFilter?.title
+            ).root
+            filterOption.id = ViewCompat.generateViewId()
+            filterOption.text = it.title
+            filterOption.isChecked = it.title == viewModel.selectedFilter?.title
             binding.taskFilters.addView(filterOption)
         }
 
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.selectedFilter = null
             } else {
                 val taskStatusCheckedChip = TaskStatus.getByTitle(
-                    checkedChip?.text.toString()
+                    checkedChip.text.toString()
                 )
                 viewModel.selectedFilter = taskStatusCheckedChip
             }
@@ -63,11 +65,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getTaskList() {
-        taskAdapter.setData(viewModel.selectAll())
+        lifecycleScope.launch {
+            taskAdapter.setData(viewModel.selectAll())
+        }
     }
 
     private fun getTaskFromStatus(status: TaskStatus) {
-        taskAdapter.setData(viewModel.selectByStatus(status))
+        lifecycleScope.launch {
+            taskAdapter.setData(viewModel.selectByStatus(status))
+        }
     }
 
     private fun getFilteredList() {

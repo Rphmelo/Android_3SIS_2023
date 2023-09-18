@@ -5,6 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import br.com.fiap.todoapp.TaskStatus
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 const val TABLE_NAME = "TASK_DATABASE"
 
@@ -15,7 +18,7 @@ abstract class AppDatabase: RoomDatabase() {
 
     companion object {
         private var INSTANCE: AppDatabase? = null
-        fun getDatabase(context: Context): AppDatabase {
+        suspend fun getDatabase(context: Context): AppDatabase {
             if(INSTANCE != null) {
                 return INSTANCE!!
             } else {
@@ -23,8 +26,7 @@ abstract class AppDatabase: RoomDatabase() {
                     context,
                     AppDatabase::class.java,
                     TABLE_NAME
-                ).allowMainThreadQueries() //nao façam isso em casa
-                    .build()
+                ).build()
                 INSTANCE = instance
 
                 val taskList = listOf(
@@ -39,12 +41,14 @@ abstract class AppDatabase: RoomDatabase() {
                     TaskModel(title = "Estudar música", status = TaskStatus.PENDING)
                 )
 
-                if(INSTANCE?.taskDAO()?.selectAll()?.isEmpty() == true) {
-                    taskList.forEach {
-                        INSTANCE?.taskDAO()?.insert(it)
+                return GlobalScope.async {
+                    if(INSTANCE?.taskDAO()?.selectAll()?.isEmpty() == true) {
+                        taskList.forEach {
+                            INSTANCE?.taskDAO()?.insert(it)
+                        }
                     }
-                }
-                return instance
+                    instance
+                }.await()
             }
         }
     }
