@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:indeterminate="true"
+        android:progress="90"
+
         />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
