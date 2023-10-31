@@ -1,5 +1,6 @@
 package br.com.fiap.marvelapp.data
 
+import br.com.fiap.marvelapp.domain.ComicModel
 import br.com.fiap.marvelapp.domain.MarvelCharacterModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,6 +13,13 @@ interface MarvelRepository {
         apiKey: String,
         hash: String
     ): Response<MarvelCharacterModel>
+
+    suspend fun listComics(
+        timestamp: String,
+        apiKey: String,
+        hash: String,
+        characterId: Int
+    ): Response<ComicModel>
 }
 
 class MarvelRepositoryImpl(
@@ -31,4 +39,22 @@ class MarvelRepositoryImpl(
             )
         }
     }
+
+    override suspend fun listComics(
+        timestamp: String,
+        apiKey: String,
+        hash: String,
+        characterId: Int
+    ): Response<ComicModel> {
+        return withContext(Dispatchers.IO) {
+            service.listComics(
+                timestamp,
+                apiKey,
+                hash,
+                characterId
+            )
+        }
+    }
+
+
 }

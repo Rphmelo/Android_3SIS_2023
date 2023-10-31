@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.fiap.marvelapp.R
 import br.com.fiap.marvelapp.domain.MarvelCharacterDataResultModel
 import br.com.fiap.marvelapp.databinding.ViewCharacterItemBinding
+import br.com.fiap.marvelapp.presentation.CharacterDetailFragment.Companion.buildBundle
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import java.lang.Exception
@@ -48,10 +49,10 @@ class CharacterListAdapter : RecyclerView.Adapter<CharacterListAdapter.Character
         fun bindView(character: MarvelCharacterDataResultModel) {
             with(view.root) {
                 setOnClickListener {
-//                    findNavController().navigate(
-//                        R.id.action_character_list_to_character_detail,
-//                        buildBundle(character)
-//                    )
+                    findNavController().navigate(
+                        R.id.action_character_list_to_character_detail,
+                        buildBundle(character)
+                    )
                 }
             }
             view.characterNameValue.text = character.name
